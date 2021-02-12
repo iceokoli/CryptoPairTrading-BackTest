@@ -9,7 +9,16 @@ BTC returns and ETH returns have a correlation of 0.86 between 2019-09-18 and 20
 
 Period: 2019-09-18 and 2020-10-31
 
-blah blah
+
+|  |  |
+|---|---|
+Threshold |  1.0 std 
+Period | 25.0
+Starting Value | £10000.00
+Ending   Value | £15772.11
+Return | 58%
+|
+![image](training_overview.png)
 
 ## Testing - Results
 

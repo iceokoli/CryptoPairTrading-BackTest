@@ -1,0 +1,7 @@
+yfinance
+backtrader
+TA-Lib
+matplotlib==3.2.2
+pyfolio
+jupyter notebook
+seaborn
