@@ -17,7 +17,8 @@ Period | 25.0
 Starting Value | £10000.00
 Ending   Value | £15772.11
 Return | 58%
-|
+
+
 ![image](training_overview.png)
 
 ## Testing - Results

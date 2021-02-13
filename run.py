@@ -72,9 +72,12 @@ def run_strat(**kwargs):
     #     PairTrading,
     #     trigger=map(lambda x: x / 10, range(10, 40, 5)),
     #     period=range(10, 55, 5),
+    #     sell_mul=map(lambda x: x / 10, range(1, 11, 1)),
     #     printout=kwargs["show_log"],
     # )
-    cerebro.addstrategy(PairTrading, trigger=1, period=25, printout=kwargs["show_log"])
+    cerebro.addstrategy(
+        PairTrading, sell_mul=0.1, trigger=1, period=20, printout=kwargs["show_log"]
+    )
 
     if kwargs["show_pyfolio"]:
         cerebro.addanalyzer(bt.analyzers.PyFolio, _name="pyfolio")

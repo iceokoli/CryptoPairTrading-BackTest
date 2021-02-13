@@ -23,6 +23,7 @@ class PairTrading(bt.Strategy):
         ("printout", True),
         ("period", 30),
         ("trigger", 1),
+        ("sell_mul", 1),
     )
 
     def __init__(self):
@@ -68,7 +69,8 @@ class PairTrading(bt.Strategy):
         lower_threshold = -self.p.trigger
 
         if self.position:
-            if self.spread < upper_threshold and self.spread > lower_threshold:
+            # if self.spread < upper_threshold and self.spread > lower_threshold:
+            if abs(self.spread) < (self.p.sell_mul * abs(upper_threshold)):
                 txt = "CLOSE POSTION, Indicator: {:.4f}".format(self.spread[0])
                 self.log(txt)
                 self.close(data=self.getdatabyname("Bitcoin"))
@@ -108,7 +110,8 @@ class PairTrading(bt.Strategy):
         rtr = (value / contr) - 1
         print("==================================================")
         print("Threshold      - {:.1f} std".format(self.p.trigger))
-        print("Period      - {:.1f}".format(self.p.period))
+        print("Period         - {:.1f}".format(self.p.period))
+        print("Sell Multiplier- {:.1f}".format(self.p.sell_mul))
         print("Starting Value - £%.2f" % contr)
         print("Ending   Value - £%.2f" % value)
         print("Return         - " + "{:.0%}".format(rtr))
@@ -116,7 +119,9 @@ class PairTrading(bt.Strategy):
         # with open("results/training/optimisation.csv", "r") as f:
         #     output = f.readlines()
         # output.append(
-        #     "{:.1f},{:.1f},{:.3f}\n".format(self.p.trigger, self.p.period, rtr)
+        #     "{:.1f},{:.1f},{:.1f},{:.3f}\n".format(
+        #         self.p.trigger, self.p.period, self.p.sell_mul, rtr
+        #     )
         # )
         # with open("results/training/optimisation.csv", "w") as f:
         #     f.writelines(output)
