@@ -13,10 +13,11 @@ Period: 2019-09-18 and 2020-10-31
 |  |  |
 |---|---|
 Threshold |  1.0 std 
-Period | 25.0
+Period | 20.0
+Sell Threshold | 0.1
 Starting Value | £10000.00
 Ending   Value | £15772.11
-Return | 58%
+Return | 68%
 
 
 ![image](training_overview.png)
