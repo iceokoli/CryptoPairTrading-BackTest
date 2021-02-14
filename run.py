@@ -44,7 +44,7 @@ def run_strat(**kwargs):
 
     # Adds DataFeeds for universe to the backtester
     if kwargs["data_set"] == "testing":
-        from_dt = datetime.datetime(2020, 11, 1)
+        from_dt = datetime.datetime(2020, 11, 1) - datetime.timedelta(40)
         to_dt = datetime.datetime(2021, 2, 8)
     else:
         from_dt = datetime.datetime(2019, 8, 19)
