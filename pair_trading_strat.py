@@ -63,29 +63,26 @@ class PairTrading(bt.Strategy):
             self.log("%s, %s ," % (order.data._name, order.Status[order.status]))
 
     def next(self):
-        btc_size = 0.475 * self.broker.getvalue() / self.getdatabyname("Bitcoin")
-        eth_size = 0.475 * self.broker.getvalue() / self.getdatabyname("Ethereum")
+        btc_size = 0.97 * self.broker.getvalue() / self.getdatabyname("Bitcoin")
+        eth_size = 0.97 * self.broker.getvalue() / self.getdatabyname("Ethereum")
         upper_threshold = self.p.trigger
         lower_threshold = -self.p.trigger
 
         if self.position:
             # if self.spread < upper_threshold and self.spread > lower_threshold:
-            if abs(self.spread) < (self.p.sell_mul * abs(upper_threshold)):
-                txt = "CLOSE POSTION, Indicator: {:.4f}".format(self.spread[0])
-                self.log(txt)
-                self.close(data=self.getdatabyname("Bitcoin"))
-                self.close(data=self.getdatabyname("Ethereum"))
-                p_txt = "Profit: {:.2f}".format(
-                    self.broker.getvalue() - self.broker.startingcash
-                )
-                self.log(p_txt)
-            elif (
+            exit_condition = abs(self.spread) < (self.p.sell_mul * abs(upper_threshold))
+            reversed = (
                 self.spread > abs(upper_threshold) and self.spread * self.spread[-1] < 0
-            ):
+            )
+            if exit_condition or reversed:
                 txt = "CLOSE POSTION, Indicator: {:.4f}".format(self.spread[0])
                 self.log(txt)
-                self.close(data=self.getdatabyname("Bitcoin"))
-                self.close(data=self.getdatabyname("Ethereum"))
+                if self.getposition(data=self.getdatabyname("Bitcoin")).size < 0:
+                    self.close(data=self.getdatabyname("Ethereum"))
+                    self.close(data=self.getdatabyname("Bitcoin"))
+                else:
+                    self.close(data=self.getdatabyname("Bitcoin"))
+                    self.close(data=self.getdatabyname("Ethereum"))
                 p_txt = "Profit: {:.2f}".format(
                     self.broker.getvalue() - self.broker.startingcash
                 )
@@ -95,8 +92,8 @@ class PairTrading(bt.Strategy):
                 # Sell Btc and buy Eth
                 txt = "OPEN POSTION, Indicator: {:.4f}".format(self.spread[0])
                 self.log(txt)
-                self.buy(data=self.getdatabyname("Ethereum"), size=eth_size)
                 self.sell(data=self.getdatabyname("Bitcoin"), size=btc_size)
+                self.buy(data=self.getdatabyname("Ethereum"), size=eth_size)
             elif self.spread < lower_threshold:
                 # Buy Btc and Sell Eth
                 txt = "OPEN POSTION, Indicator: {:.4f}".format(self.spread[0])

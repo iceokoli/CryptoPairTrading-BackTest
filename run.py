@@ -76,7 +76,7 @@ def run_strat(**kwargs):
     #     printout=kwargs["show_log"],
     # )
     cerebro.addstrategy(
-        PairTrading, sell_mul=0.1, trigger=1, period=20, printout=kwargs["show_log"]
+        PairTrading, sell_mul=0.2, trigger=3, period=30, printout=kwargs["show_log"]
     )
 
     if kwargs["show_pyfolio"]:

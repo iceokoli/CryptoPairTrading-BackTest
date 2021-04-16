@@ -9,8 +9,8 @@ def get_args():
     parser = ArgumentParser()
     parser.add_argument("--tickers", required=True)
     parser.add_argument("--save-location", required=True)
-    parser.add_argument("--start-date", required=True, help="YYYYMMDD")
-    parser.add_argument("--end-date", required=True, help="YYYYMMDD")
+    parser.add_argument("--start-date", required=True, help="YYYY-MM-DD")
+    parser.add_argument("--end-date", required=True, help="YYYY-MM-DD")
 
     args = parser.parse_args()
 
